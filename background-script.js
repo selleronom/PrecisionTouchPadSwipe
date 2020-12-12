@@ -7,7 +7,7 @@ gettingItems.then(onGot, onError);
 function onGot(item) {
     if (item.default_values_initialized != true) {
         browser.storage.local.set({
-            sensitivity: "3",
+            sensitivity: "100",
             default_values_initialized: true
         });
     }
