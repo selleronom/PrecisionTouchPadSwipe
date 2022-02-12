@@ -16,3 +16,12 @@ function onGot(item) {
 function onError(error) {
     console.log(`Error: ${error}`);
 }
+let lastSwipe = 0;
+function handleMessage(message,sender, sendResponse) {
+	if(message=="ask date"){
+		sendResponse(lastSwipe);
+	}else{
+		lastSwipe = message;
+	}
+}
+browser.runtime.onMessage.addListener(handleMessage);
