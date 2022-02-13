@@ -1,0 +1,29 @@
+name: Zip, publish release and push to Firefox Addons
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Zip Release
+        uses: cardinalby/webext-buildtools-pack-extension-dir-action@v1
+        with:
+          extensionDir: "."
+          zipFilePath: "build/extension.zip"
+      - name: Publish Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/extension.zip"
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push Release to Firefox Addons
+        uses: cardinalby/webext-buildtools-firefox-addons-action@v1
+        with:
+          zipFilePath: "build/extension.zip"
+          extensionId: "{635acc1b-7e70-485b-b483-d77befc884b4}"
+          jwtIssuer: ${{ secrets.FF_JWT_ISSUER }}
+          jwtSecret: ${{ secrets.FF_JWT_SECRET }}
