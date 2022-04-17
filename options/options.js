@@ -1,11 +1,20 @@
 const sensitivityInput = document.querySelector("#sensitivity");
+const sensitivityInputNumber = document.querySelector("#s")
+const enableLogging = document.querySelector("#logging");
+
+sensitivityInputNumber.innerHTML = sensitivityInput.value;
+sensitivityInput.addEventListener("input", function(e){
+	sensitivityInputNumber.innerHTML = sensitivityInput.value;
+});
+
 
 /*
 Store the currently selected settings using browser.storage.local.
 */
 function storeSettings() {
     browser.storage.local.set({
-        sensitivity: sensitivityInput.value
+        sensitivity: sensitivityInput.value,
+        developermode: enableLogging.checked
     });
 }
 
@@ -14,6 +23,7 @@ Update the options UI with the settings values retrieved from storage.
 */
 function onGot(retrieveSettings) {
     sensitivityInput.value = retrieveSettings.sensitivity;
+    enableLogging.checked = retrieveSettings.developermode;
 }
 
 function onError(error) {
@@ -29,4 +39,4 @@ gettingStoredSettings.then(onGot, onError);
 /*
 On blur, save the currently selected settings.
 */
-sensitivityInput.addEventListener("blur", storeSettings);
+document.addEventListener("blur", storeSettings);
