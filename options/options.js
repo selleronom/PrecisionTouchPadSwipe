@@ -3,7 +3,7 @@ const sensitivityInputNumber = document.querySelector("#s")
 const enableLogging = document.querySelector("#logging");
 
 sensitivityInput.addEventListener("input", function(e){
-	sensitivityInputNumber.innerText = sensitivityInput.value; //innerHTML
+	sensitivityInputNumber.innerText = sensitivityInput.value;
 });
 
 
