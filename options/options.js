@@ -2,9 +2,8 @@ const sensitivityInput = document.querySelector("#sensitivity");
 const sensitivityInputNumber = document.querySelector("#s")
 const enableLogging = document.querySelector("#logging");
 
-sensitivityInputNumber.innerHTML = sensitivityInput.value;
 sensitivityInput.addEventListener("input", function(e){
-	sensitivityInputNumber.innerHTML = sensitivityInput.value;
+	sensitivityInputNumber.innerText = sensitivityInput.value;
 });
 
 
@@ -23,6 +22,7 @@ Update the options UI with the settings values retrieved from storage.
 */
 function onGot(retrieveSettings) {
     sensitivityInput.value = retrieveSettings.sensitivity;
+    sensitivityInputNumber.innerText = sensitivityInput.value;
     enableLogging.checked = retrieveSettings.developermode;
 }
 
@@ -33,7 +33,7 @@ function onError(error) {
 /*
 On opening the options page, fetch stored settings and update the UI with them.
 */
-const gettingStoredSettings = browser.storage.local.get();
+let gettingStoredSettings = browser.storage.local.get();
 gettingStoredSettings.then(onGot, onError);
 
 /*
