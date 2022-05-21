@@ -8,8 +8,7 @@ function onGot(item) {
     if (item.default_values_initialized != true) {
         browser.storage.local.set({
             sensitivity: "100",
-            default_values_initialized: true,
-            developermode: false
+            default_values_initialized: true
         });
     }
 }
@@ -20,10 +19,8 @@ function onError(error) {
 let lastSwipe = 0;
 function handleMessage(message,sender, sendResponse) {
 	if(message=="ask date"){
-        console.log("lastSwipe asked")
 		sendResponse(lastSwipe);
-	}else{ //content script telling us the date of swipe at any tab //
-        console.log("new lastSwipe")
+	}else{
 		lastSwipe = message;
 	}
 }
