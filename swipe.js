@@ -39,29 +39,8 @@ function setData(){
 
 browser.storage.onChanged.addListener(setData);
 
-//DONE partially SOLVED: TODO: solve: find a way to register the element overscroll-x listeners on single page applications like github.com everytime the user navigates to the page because: after the eventlisteners for overscroll elements are unregistered after the element is unloaded after page navigation
-//https://stackoverflow.com/questions/3522090/event-when-window-location-href-changes
-var oldHref = document.location.href;
-window.onload = function() {
-    var bodyList = document.querySelector("body")
-    var observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if (oldHref != document.location.href) {
-                oldHref = document.location.href;
-                /* Changed ! your code here */
-                //reregister scrollevents on elements which have overscroll-x
-                let horizontalScrollElements = ElementsWithScrolls();
-                print(horizontalScrollElements,"error");
-								horizontalScrollElements.forEach(listenForScrollEvents);
-            }
-        });
-    });
-    var config = {
-        childList: true,
-        subtree: true
-    };   
-    observer.observe(bodyList, config);
-};
+//TODO: solve: find a way to register the element overscroll-x listeners on single page applications like github.com everytime the user navigates to the page because: after the eventlisteners for overscroll elements are unregistered after the element is unloaded after page navigation
+//So basically, call ElementsWithScrolls on every URL change: the webNavigation API is the way, because the MutationObserver code blocks bing image search (https://github.com/selleronom/PrecisionTouchPadSwipe/issues/15)
 
 function onGot(retrieveSettings) {
 		print("settings loaded at new script load","warn");
